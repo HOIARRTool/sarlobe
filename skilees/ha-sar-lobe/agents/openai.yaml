@@ -1,0 +1,4 @@
+interface:
+  display_name: "HA Second Brain — SAR Lobe"
+  short_description: "เขียนและทบทวน SAR ด้วยหลักฐานและ HA Scoring"
+  default_prompt: "Use $ha-sar-lobe to analyze my hospital evidence and draft or review the relevant SAR section."
