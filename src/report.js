@@ -42,10 +42,6 @@ export function homePage({ maxFileMb, deliveryReady, error = "" }) {
   return page({
     title: "HA6 SAR Reviewer",
     body: `
-      <section class="intro">
-        <div><p class="eyebrow">SAR Lobe · HA Standard 6</p><h1>ตรวจ SAR ทีละมาตรฐาน<br>ในมุมผู้เยี่ยมสำรวจ</h1></div>
-        <div class="score-key"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><small>Design → Effective → Integration → Impact</small></div>
-      </section>
       ${error ? `<div class="alert error">${escapeHtml(error)}</div>` : ""}
       <form class="review-form" action="/review" method="post" enctype="multipart/form-data">
         <section class="panel">
