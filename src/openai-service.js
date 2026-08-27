@@ -103,6 +103,7 @@ async function notifyFailure(job) {
     jobId: job.id,
     createdAt: job.created_at,
     inputIssue: inputIssueFrom(job.error_message),
+    errorMessage: job.error_message,
   });
   if (sent) await markNotified(job.id);
 }

@@ -44,6 +44,42 @@ export function emailJobDetails({ jobId, createdAt }) {
   };
 }
 
+function isRateLimitError(errorMessage) {
+  return /rate limit|tokens per min|\bTPM\b|too many requests|\b429\b/i.test(String(errorMessage || ""));
+}
+
+export function failureEmailContent({
+  standardCode,
+  standardTitle,
+  jobId,
+  createdAt,
+  inputIssue = "",
+  errorMessage = "",
+}) {
+  const details = emailJobDetails({ jobId, createdAt });
+  const isInputIssue = Boolean(inputIssue);
+  const isRateLimit = !isInputIssue && isRateLimitError(errorMessage);
+
+  if (isInputIssue) {
+    return {
+      subject: `โปรดตรวจสอบไฟล์ SAR ${standardCode} · Ref ${details.reference}`,
+      text: `ระบบหยุดก่อนให้คะแนน SAR ${standardCode} ${standardTitle || ""}\n\nเลขอ้างอิง: ${details.reference}\nรับคำขอเมื่อ: ${details.submittedAt} น.\n\nสาเหตุ: ${inputIssue}\n\nระบบไม่ได้สร้าง PDF/Word กรุณาตรวจสอบมาตรฐานที่เลือกและไฟล์ SAR แล้วส่งคำขอใหม่`,
+    };
+  }
+
+  if (isRateLimit) {
+    return {
+      subject: `ระบบประมวลผลหนาแน่น SAR ${standardCode} · Ref ${details.reference}`,
+      text: `ระบบมีงานประมวลผลพร้อมกันเกินขีดจำกัด กรุณารอแล้วส่งใหม่\n\nSAR ${standardCode} ${standardTitle || ""}\nเลขอ้างอิง: ${details.reference}\nรับคำขอเมื่อ: ${details.submittedAt} น.\n\nกรุณารอประมาณ 2–3 นาที แล้วกลับไปที่เว็บไซต์เพื่อส่งคำขอใหม่เพียงครั้งเดียว\nระบบยังไม่ได้สร้างไฟล์ PDF/Word สำหรับคำขอนี้`,
+    };
+  }
+
+  return {
+    subject: `ไม่สามารถประมวลผล SAR ${standardCode} · Ref ${details.reference}`,
+    text: `ระบบไม่สามารถประมวลผล SAR ${standardCode} ${standardTitle || ""} ได้ในครั้งนี้\n\nเลขอ้างอิง: ${details.reference}\nรับคำขอเมื่อ: ${details.submittedAt} น.\n\nกรุณากลับไปที่เว็บไซต์และส่งคำขอใหม่ หรือติดต่อผู้ดูแลระบบ`,
+  };
+}
+
 export function emailConfigured() {
   return Boolean(getTransporter());
 }
@@ -77,18 +113,23 @@ export async function sendFailureEmail({
   jobId,
   createdAt,
   inputIssue = "",
+  errorMessage = "",
 }) {
   const mail = getTransporter();
   if (!mail) return false;
-  const details = emailJobDetails({ jobId, createdAt });
-  const isInputIssue = Boolean(inputIssue);
+  const content = failureEmailContent({
+    standardCode,
+    standardTitle,
+    jobId,
+    createdAt,
+    inputIssue,
+    errorMessage,
+  });
   await mail.sendMail({
     from: config.smtp.from,
     to: email,
-    subject: `${isInputIssue ? "โปรดตรวจสอบไฟล์" : "ไม่สามารถประมวลผล"} SAR ${standardCode} · Ref ${details.reference}`,
-    text: isInputIssue
-      ? `ระบบหยุดก่อนให้คะแนน SAR ${standardCode} ${standardTitle || ""}\n\nเลขอ้างอิง: ${details.reference}\nรับคำขอเมื่อ: ${details.submittedAt} น.\n\nสาเหตุ: ${inputIssue}\n\nระบบไม่ได้สร้าง PDF/Word กรุณาตรวจสอบมาตรฐานที่เลือกและไฟล์ SAR แล้วส่งคำขอใหม่`
-      : `ระบบไม่สามารถประมวลผล SAR ${standardCode} ${standardTitle || ""} ได้ในครั้งนี้\n\nเลขอ้างอิง: ${details.reference}\nรับคำขอเมื่อ: ${details.submittedAt} น.\n\nกรุณากลับไปที่เว็บไซต์และส่งคำขอใหม่ หรือติดต่อผู้ดูแลระบบ`,
+    subject: content.subject,
+    text: content.text,
   });
   return true;
 }
