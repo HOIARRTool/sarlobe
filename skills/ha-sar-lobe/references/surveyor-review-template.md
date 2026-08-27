@@ -19,6 +19,9 @@ Read [review-and-scoring.md](review-and-scoring.md) and use its official maturit
 - Do not count SPA activities or numbered implementation notes as independent checklist points. Use them to understand intent and formulate For Finding questions.
 - Missing detail in SAR does not automatically lower the score.
 - A result below target does not automatically force score 2 if important processes are implemented effectively and the organization analyzes and uses the result.
+- Calibrate independently from the Self Score. When the AI-Assisted Score is lower, `score_rationale` must name the unmet maturity anchor, the material hospital evidence that constrains the overall requirement, and why the issue is score-limiting rather than only For Finding. If that basis is unavailable, do not lower the score solely from uncertainty.
+- For a compound subchapter, group evidence and KPIs by risk domain before scoring. One unfavorable domain or indicator affects the whole score only when it is scope-matched and materially demonstrates unreliable implementation across important areas.
+- Distinguish process nonconformity, near miss, and actual harm. Do not infer harm from an incorrect-process indicator without supporting evidence.
 - Scores 4-5 require the corresponding maturity in continuous improvement, integration, sustained/comparative results, role-model practice, or impact.
 - Calculate the AI-Assisted Score only after reading both `(ii) ผลการพัฒนาที่ได้ดำเนินการ` and the relevant KPI evidence in `(iv) ผลการดำเนินการ`.
 - A future plan in `(iii)` cannot justify or inflate the current score.
@@ -75,6 +78,7 @@ Place the relevant hospital KPI and results in their own row, mapped to the subc
 - Leave Self Score and AI-Assisted Score blank.
 - Analyze achievement against target, multi-year trend, definition, denominator, period, variation, comparison, data quality, and consistency with the narrative.
 - When a KPI is below target, worsening, missing for a material context risk, or internally inconsistent, state the issue in this row's For Finding and feed it back into `ผลการพัฒนาเชื่อมโยงกับตัวชี้วัด` and the AI-Assisted Score in row `(ii)`.
+- Before using an adverse KPI to lower the score, check its definition, scope match, denominator or exposure, severity, unit/time distribution, recurrence, reporting and detection culture, corrective action, and use for learning. A below-target value may remain For Finding when its material effect on overall process maturity is not established.
 - Treat activity counts as process controls unless they genuinely demonstrate an outcome.
 - For safety-event counts, check reporting culture, denominator, severity, detection, review completeness, and learning before interpreting direction.
 
@@ -98,6 +102,7 @@ Before finalizing, confirm that:
 - prior survey recommendations are included only when supplied, and progress is not confused with verified closure;
 - row `(iii)` reviews the hospital-written plan separately and does not inflate the current score;
 - row `(iv)` analyzes KPI and feeds material result issues back into row `(ii)`;
+- any AI-Assisted Score below the Self Score has passed the score-change gate and states the exact score-limiting maturity constraint;
 - evidence requests are distinguished from confirmed gaps;
 - page, section, table, or dataset traceability is preserved when available;
 - the output contains no hospital practice, result, recommendation, or score-supporting fact invented by the model.

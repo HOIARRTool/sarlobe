@@ -22,6 +22,28 @@ Do not confuse `effective implementation` at score 3 with the final outcome indi
 
 Do not reduce a score automatically because a detail or supporting document is absent from the SAR narrative. Put it under **For Finding** as evidence to request. Treat it as a material gap only when the hospital states that the system is absent or incomplete, reliable evidence contradicts the claim, or the omission materially prevents the overall requirement from being effective. Likewise, a result below target does not by itself force score 2 when implementation is effective and the organization analyzes and uses the measure; good and sustained comparative results become decisive at scores 4-5.
 
+## Score-change gate for mixed evidence
+
+Calibrate the AI-Assisted Score independently; the hospital's Self Score is neither a floor nor a presumption of correctness. However, before assigning a lower score than the Self Score, the rationale must state all three of the following:
+
+1. the exact maturity anchor that is not met;
+2. the hospital evidence showing a material constraint across the overall requirement or important areas; and
+3. why the issue limits current maturity rather than remaining an evidence request or focused For Finding matter.
+
+If any of these cannot be stated from the supplied evidence, do not lower the score merely because a detail is missing, verification sampling is not 100%, the hospital has written a future improvement plan, or one indicator is below target. Request the smallest material evidence needed under For Finding. Conversely, lower the score when reliable evidence shows important requirements are absent, implementation is materially partial or unreliable, or the organization does not measure or use results at the maturity anchor claimed.
+
+For a compound subchapter covering several risk domains, judge the whole requirement without mechanical averaging. A weak domain becomes the lowest material maturity constraint only when its scope, severity, recurrence, and system implications are substantial enough to impair the overall requirement. One adverse indicator must not cap the whole subchapter at score 2 solely because it is unfavorable.
+
+Before an adverse KPI changes a process score, determine:
+
+- whether it measures a process nonconformity, a near miss, or actual harm;
+- whether its definition and scope match the process claim being scored;
+- denominator or exposure, severity, distribution across units or periods, recurrence, and data quality;
+- whether increased reporting could reflect better detection or reporting culture;
+- whether the organization reviewed the signal, corrected the system, and used the result for learning.
+
+Do not equate an incorrect-process event automatically with harm. At score 3, an organization may still have some gaps or below-target results when important systems are effectively implemented, relevant measures are analyzed, and the results are used for continuing development. Score 4-5 still requires stronger integration, sustained improvement or comparison, and role-model impact as defined by the maturity anchors.
+
 When team members disagree on a score, record each view's strengths and opportunities for improvement, improve the system, and reassess. The SAR should state what is done well and the development plan; verification evidence should remain organized at the hospital.
 
 ## Score review questions
@@ -34,6 +56,7 @@ When team members disagree on a score, record each view's strengths and opportun
 6. Is integration visible across professions, units, leadership, and support systems?
 7. Are results sustained, meaningful, and interpreted against target or comparison?
 8. Would the claims survive document review, interview, observation, tracer, and raw-data review?
+9. If the AI-Assisted Score is lower than the Self Score, does the rationale pass the score-change gate rather than merely restating a missing detail or unfavorable KPI?
 
 ## Confidence
 
@@ -68,6 +91,9 @@ Do not recommend creating paperwork solely to increase a score.
 - claiming innovation without evidence of novelty, adoption, or impact;
 - giving score 4 or 5 without sustained results and mature learning cycles;
 - using a future plan to justify the current score;
+- lowering a compound subchapter because of one adverse KPI without checking scope, severity, denominator, reporting culture, corrective action, and material system impact;
+- treating a process nonconformity, near miss, and harm outcome as interchangeable;
+- lowering the Self Score without naming the maturity anchor and material evidence that support the change;
 - mixing hospital-specific evidence from different organizations.
 
 ## Part IV quality test

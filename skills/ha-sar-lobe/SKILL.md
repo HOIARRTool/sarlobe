@@ -53,6 +53,8 @@ Test claims against the overall requirement, material context, evidence, coverag
 
 For a surveyor-minded review of a hospital SAR form, read both [references/review-and-scoring.md](references/review-and-scoring.md) and [references/surveyor-review-template.md](references/surveyor-review-template.md). Follow the form's row structure: retain `(i) บริบท` without score or finding; for every scored subchapter separate `(ii) ผลการพัฒนาที่ได้ดำเนินการ`, `(iii) แผนการพัฒนา`, and `(iv) ผลการดำเนินการ`. Display Self Score and AI-Assisted Score only on row `(ii)`, after using the KPI evidence from row `(iv)` to calibrate that score.
 
+Calibrate independently from the hospital's Self Score, but apply the score-change gate before assigning a lower AI-Assisted Score: name the exact maturity anchor not met, cite material evidence that constrains the overall requirement across important areas, and explain why the issue is score-limiting rather than only a For Finding matter. Do not let one adverse indicator or one risk domain determine a compound subchapter unless it is scope-matched and demonstrates material system unreliability.
+
 ### Draft or review Part IV
 
 Prioritize outcomes and high-impact measures. Show target, current level, multi-year trend, benchmark when useful, annotations, and analysis of what changed and why. Link results back to the developed process. Do not treat activity counts as outcomes. Read both [references/sar-2026-framework.md](references/sar-2026-framework.md) and [references/review-and-scoring.md](references/review-and-scoring.md).
