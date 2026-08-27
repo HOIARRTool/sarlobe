@@ -55,6 +55,7 @@ button, .link-button { border: 0; border-radius: 3px; padding: 12px 20px; font: 
 .status-card.failed .status-mark { background: #a63b31; }
 .status-card details { margin: 20px 0; text-align: left; background: #f7f2ec; padding: 12px; }
 .status-card code { overflow-wrap: anywhere; }
+.wait-note { margin: 24px 0 20px; text-align: left; }
 .admin-card { text-align: left; }
 .admin-card > .status-mark, .admin-card > .eyebrow, .admin-card > h1 { text-align: center; }
 .progress { height: 7px; overflow: hidden; margin: 26px 0 8px; background: var(--mint); }

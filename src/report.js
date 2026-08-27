@@ -95,7 +95,8 @@ export function submittedPage(job) {
       <h1>รับคำขอแล้ว</h1>
       <p>ระบบกำลังวิเคราะห์ SAR และจะส่งผลเป็นไฟล์ <strong>PDF และ Word ทางอีเมลเท่านั้น</strong></p>
       <p class="hint">เลขอ้างอิง: ${escapeHtml(job.id)} · หน้าเว็บนี้จะไม่แสดงผลการวิเคราะห์</p>
-      <a class="secondary link-button" href="/">ส่งมาตรฐานถัดไป</a>
+      <div class="alert warning wait-note"><strong>โปรดรอประมาณ 20–30 นาที</strong><br>กรุณารออีเมลแจ้งผลและอย่ากดส่งมาตรฐานเดิมซ้ำระหว่างประมวลผล เพราะจะสร้างคำขอซ้ำ ใช้โควตาเพิ่ม และอาจทำให้การประมวลผลล่าช้า</div>
+      <a class="secondary link-button" href="/">ส่งมาตรฐานอื่น</a>
     </section>`,
   });
 }

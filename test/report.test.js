@@ -85,6 +85,9 @@ test("report generator creates Word and PDF and merges the subchapter cell", asy
 test("submitted page never exposes the analysis", () => {
   const html = submittedPage(job(fixture()));
   assert.match(html, /PDF และ Word ทางอีเมลเท่านั้น/);
+  assert.match(html, /20–30 นาที/);
+  assert.match(html, /อย่ากดส่งมาตรฐานเดิมซ้ำ/);
+  assert.match(html, /ส่งมาตรฐานอื่น/);
   assert.match(html, /หน้าเว็บนี้จะไม่แสดงผลการวิเคราะห์/);
   assert.doesNotMatch(html, /บริบทโรงพยาบาล/);
   assert.doesNotMatch(html, /\/result\//);
