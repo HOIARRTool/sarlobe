@@ -1,3 +1,5 @@
+import { buildFocusedLobeContext } from "./lobe-context.js";
+
 export function buildReviewPrompt({ standard, notes, hasPriorReport, filenames }) {
   const primaryFilename = filenames[0] || "ไม่ระบุ";
   const subchapterLines = standard.subchapters
@@ -5,7 +7,9 @@ export function buildReviewPrompt({ standard, notes, hasPriorReport, filenames }
     .join("\n");
 
   return `
-ใช้ skill ชื่อ ha-sar-lobe ตรวจ SAR ในมุมผู้เยี่ยมสำรวจเชิงเรียนรู้ และคืนค่าเป็น JSON ตาม schema ที่กำหนดเท่านั้น
+ใช้ SAR Lobe context เฉพาะมาตรฐานที่แนบไว้ด้านล่างเพื่อตรวจ SAR ในมุมผู้เยี่ยมสำรวจเชิงเรียนรู้ และคืนค่าเป็น JSON ตาม schema ที่กำหนดเท่านั้น ห้ามขยายไปอ่านหรือวิเคราะห์มาตรฐานอื่นที่ไม่ได้เลือก นอกจากใช้ตรวจความตรงกันของไฟล์
+
+${buildFocusedLobeContext(standard)}
 
 ขอบเขตการประเมิน: ${standard.code} ${standard.title}
 มาตรฐานย่อยที่ต้องปรากฏครบและเรียงตามนี้:
