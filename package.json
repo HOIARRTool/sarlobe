@@ -1,0 +1,32 @@
+{
+  "name": "ha-sar-reviewer",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AI-assisted HA6 SAR review using the ha-sar-lobe skill",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "test": "node --test",
+    "check": "node --check src/app.js && node --check src/openai-service.js && node --check src/report.js && node --check src/report-files.js && node --check src/google-drive.js"
+  },
+  "dependencies": {
+    "@expo-google-fonts/sarabun": "^0.4.1",
+    "docx": "^9.7.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^9.0.5",
+    "openai": "^7.5.0",
+    "pdfmake": "^0.2.20",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "jszip": "^3.10.1"
+  }
+}
