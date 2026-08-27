@@ -37,7 +37,10 @@ const COLORS = {
   warning: "FFF9E9",
 };
 const DOCX_WIDTHS = [2963, 2735, 5470, 1367, 1823, 8433];
-const PDF_WIDTHS = [150, 130, 330, 60, 85, 387];
+// A3 landscape is 1190.55 pt wide. These content widths, together with the
+// cell padding and borders, stay inside one-inch ("Normal") page margins.
+export const PDF_PAGE_MARGINS = Object.freeze([72, 72, 72, 72]);
+export const PDF_WIDTHS = Object.freeze([130, 112, 286, 52, 74, 336]);
 const DOCX_FONT = { ascii: FONT_NAME, hAnsi: FONT_NAME, eastAsia: FONT_NAME, cs: FONT_NAME };
 
 function thaiDate(value) {
@@ -353,7 +356,7 @@ async function buildPdf(job, review) {
     { text: `${job.standard_code} ${job.standard_title}`, bold: true, fontSize: 18, color: `#${COLORS.tealDark}`, margin: [0, 0, 0, 2] },
     { text: `จัดทำเมื่อ ${thaiDate(job.updated_at || Date.now())} | เลขอ้างอิง ${job.id}`, fontSize: 7, color: `#${COLORS.muted}`, margin: [0, 0, 0, 8] },
     {
-      table: { headerRows: 1, widths: PDF_WIDTHS, body: [header, ...pdfRows(review)] },
+      table: { headerRows: 1, widths: [...PDF_WIDTHS], body: [header, ...pdfRows(review)] },
       layout: {
         hLineWidth: () => 0.45,
         vLineWidth: () => 0.45,
@@ -379,7 +382,7 @@ async function buildPdf(job, review) {
   const definition = {
     pageSize: "A3",
     pageOrientation: "landscape",
-    pageMargins: [24, 28, 24, 30],
+    pageMargins: [...PDF_PAGE_MARGINS],
     defaultStyle: { font: "Sarabun", fontSize: 7.2, color: `#${COLORS.ink}`, lineHeight: 1.2 },
     content,
     footer: (current, total) => ({
@@ -388,7 +391,7 @@ async function buildPdf(job, review) {
       font: "Sarabun",
       fontSize: 6.5,
       color: `#${COLORS.muted}`,
-      margin: [0, 5, 24, 0],
+      margin: [0, 5, PDF_PAGE_MARGINS[2], 0],
     }),
     info: { title: `AI-assisted SAR review ${job.standard_code}`, author: "HA6 SAR Reviewer" },
   };

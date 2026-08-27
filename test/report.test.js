@@ -2,7 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import JSZip from "jszip";
-import { buildReportFiles, findingSections } from "../src/report-files.js";
+import {
+  buildReportFiles,
+  findingSections,
+  PDF_PAGE_MARGINS,
+  PDF_WIDTHS,
+} from "../src/report-files.js";
 import { submittedPage } from "../src/report.js";
 
 function fixture(prior = null) {
@@ -80,6 +85,17 @@ test("report generator creates Word and PDF and merges the subchapter cell", asy
   assert.match(xml, /w:vMerge w:val="continue"/);
   assert.match(xml, /Self Score/);
   assert.match(xml, /AI-Assisted Score/);
+});
+
+test("PDF table fits inside A3 landscape with normal one-inch margins", () => {
+  const a3LandscapeWidth = 1190.55;
+  const availableWidth = a3LandscapeWidth - PDF_PAGE_MARGINS[0] - PDF_PAGE_MARGINS[2];
+  const cellPadding = 8 * PDF_WIDTHS.length;
+  const borders = 0.45 * (PDF_WIDTHS.length + 1);
+  const renderedTableWidth = PDF_WIDTHS.reduce((sum, width) => sum + width, 0) + cellPadding + borders;
+
+  assert.deepEqual(PDF_PAGE_MARGINS, [72, 72, 72, 72]);
+  assert.ok(renderedTableWidth <= availableWidth);
 });
 
 test("submitted page never exposes the analysis", () => {
