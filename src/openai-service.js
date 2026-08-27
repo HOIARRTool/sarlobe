@@ -135,7 +135,9 @@ export async function startReview({ job, standard, notes, sarFile, priorFile }) 
     const skillReference = {
       type: "skill_reference",
       skill_id: skill.skillId,
-      ...(skill.version ? { version: skill.version } : {}),
+      ...(skill.version
+    ? { version: skill.version === "latest" ? "latest" : Number(skill.version) }
+    : {}),
     };
 
     const response = await client.responses.create({
