@@ -5,6 +5,7 @@ export const REVIEW_SCHEMA = {
   type: "object",
   additionalProperties: false,
   required: [
+    "input_validation",
     "standard_code",
     "standard_title",
     "major_context",
@@ -13,6 +14,26 @@ export const REVIEW_SCHEMA = {
     "source_references",
   ],
   properties: {
+    input_validation: {
+      type: "object",
+      additionalProperties: false,
+      required: [
+        "status",
+        "selected_standard_code",
+        "primary_file_name",
+        "detected_standard_codes",
+        "explanation",
+        "source_reference",
+      ],
+      properties: {
+        status: { type: "string", enum: ["matched", "mismatch", "insufficient"] },
+        selected_standard_code: { type: "string" },
+        primary_file_name: { type: "string" },
+        detected_standard_codes: { type: "array", items: { type: "string" } },
+        explanation: { type: "string" },
+        source_reference: nullableString,
+      },
+    },
     standard_code: { type: "string" },
     standard_title: { type: "string" },
     major_context: {

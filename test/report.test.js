@@ -7,6 +7,14 @@ import { submittedPage } from "../src/report.js";
 
 function fixture(prior = null) {
   return {
+    input_validation: {
+      status: "matched",
+      selected_standard_code: "II-3",
+      primary_file_name: "sar.pdf",
+      detected_standard_codes: ["II-3"],
+      explanation: "พบเนื้อหาสาระของ II-3",
+      source_reference: "sar.pdf หน้า 1",
+    },
     standard_code: "II-3",
     standard_title: "สิ่งแวดล้อมในการดูแลผู้ป่วย/ผู้รับผลงาน",
     major_context: { hospital_text: "บริบทโรงพยาบาล", source_reference: "SAR หน้า 1" },

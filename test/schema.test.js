@@ -7,6 +7,7 @@ import { REVIEW_SCHEMA } from "../src/schema.js";
 
 test("structured-output schema is strict at the root", () => {
   assert.equal(REVIEW_SCHEMA.additionalProperties, false);
+  assert.ok(REVIEW_SCHEMA.required.includes("input_validation"));
   assert.ok(REVIEW_SCHEMA.required.includes("subchapters"));
 });
 

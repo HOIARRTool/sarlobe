@@ -70,6 +70,8 @@ async function deliverClaimedJob(job) {
     email: job.email,
     standardCode: job.standard_code,
     standardTitle: job.standard_title,
+    jobId: job.id,
+    createdAt: job.created_at,
     files,
   });
   if (!sent) throw new Error("SMTP is not configured");
@@ -87,23 +89,42 @@ async function attemptCompletedDelivery(id) {
   }
 }
 
+function inputIssueFrom(errorMessage) {
+  const match = String(errorMessage || "").match(/^INPUT_(?:MISMATCH|INSUFFICIENT):\s*(.+)$/s);
+  return match?.[1]?.trim() || "";
+}
+
 async function notifyFailure(job) {
   if (job.notified_at) return;
   const sent = await sendFailureEmail({
     email: job.email,
     standardCode: job.standard_code,
+    standardTitle: job.standard_title,
+    jobId: job.id,
+    createdAt: job.created_at,
+    inputIssue: inputIssueFrom(job.error_message),
   });
   if (sent) await markNotified(job.id);
 }
 
 export async function finalizeResponse(job, response) {
   if (response.status === "completed") {
-    const standard = getStandard(job.standard_code);
-    const review = validateReview(parseReview(response), standard);
-    await markCompleted(job.id, review);
-    await attemptCompletedDelivery(job.id).catch((error) => {
-      console.error("Result delivery failed; it will be retried:", error.message);
-    });
+    try {
+      const standard = getStandard(job.standard_code);
+      const review = validateReview(parseReview(response), standard);
+      await markCompleted(job.id, review);
+      await attemptCompletedDelivery(job.id).catch((error) => {
+        console.error("Result delivery failed; it will be retried:", error.message);
+      });
+    } catch (error) {
+      await markFailed(job.id, error.message || error);
+      const failedJob = await getJobById(job.id);
+      if (failedJob) {
+        await notifyFailure(failedJob).catch((emailError) => {
+          console.error("Failure email failed:", emailError.message);
+        });
+      }
+    }
     return;
   }
   if (["failed", "cancelled", "incomplete"].includes(response.status)) {
