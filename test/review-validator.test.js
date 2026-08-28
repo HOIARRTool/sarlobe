@@ -42,3 +42,20 @@ test("an unreadable or content-insufficient SAR is stopped before scoring", () =
     },
   );
 });
+
+test("validated reviews always use canonical HA6 titles instead of model wording", () => {
+  const review = validation("matched");
+  review.standard_title = "ชื่อที่ AI เรียบเรียงเอง";
+  review.subchapters = standard.subchapters.map(([code]) => ({
+    code,
+    title: "ชื่อที่ AI เรียบเรียงเอง",
+    development: { self_score: 3, ai_assisted_score: 3 },
+  }));
+
+  const validated = validateReview(review, standard);
+  assert.equal(validated.standard_title, standard.title);
+  assert.deepEqual(
+    validated.subchapters.map(({ code, title }) => [code, title]),
+    standard.subchapters,
+  );
+});

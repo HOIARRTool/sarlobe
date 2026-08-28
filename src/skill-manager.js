@@ -9,6 +9,13 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const skillRoot = path.resolve(here, "../skills/ha-sar-lobe");
 let pendingSkill;
 
+function normalizeSkillVersion(value) {
+  if (value === undefined || value === null || value === "") return undefined;
+  if (String(value).toLowerCase() === "latest") return "latest";
+  const numericVersion = Number(value);
+  return Number.isInteger(numericVersion) && numericVersion > 0 ? numericVersion : undefined;
+}
+
 async function listFiles(root, current = root) {
   const entries = await fs.readdir(current, { withFileTypes: true });
   const output = [];
@@ -60,7 +67,10 @@ async function uploadBundle(endpoint, files) {
 
 async function resolveSkill() {
   if (config.openaiSkillId) {
-    return { skillId: config.openaiSkillId, version: config.openaiSkillVersion };
+    return {
+      skillId: config.openaiSkillId,
+      version: normalizeSkillVersion(config.openaiSkillVersion),
+    };
   }
 
   const files = await listFiles(skillRoot);
@@ -70,13 +80,18 @@ async function resolveSkill() {
   const hash = await skillDigest(files);
   const saved = await getSetting("ha_sar_lobe_skill");
   if (saved?.hash === hash && saved.skillId) {
-    return { skillId: saved.skillId, version: saved.version || "latest" };
+    return {
+      skillId: saved.skillId,
+      version: normalizeSkillVersion(saved.version) || "latest",
+    };
   }
 
   const endpoint = saved?.skillId ? `skills/${saved.skillId}/versions` : "skills";
   const uploaded = await uploadBundle(endpoint, files);
   const skillId = uploaded.skill_id || saved?.skillId || uploaded.id;
-  const version = String(uploaded.version || uploaded.latest_version || uploaded.default_version || "latest");
+  const version = normalizeSkillVersion(
+    uploaded.version || uploaded.latest_version || uploaded.default_version,
+  ) || "latest";
   if (!skillId) throw new Error("OpenAI skill upload response did not include a skill id");
 
   await putSetting("ha_sar_lobe_skill", { hash, skillId, version });

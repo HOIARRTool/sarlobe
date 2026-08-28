@@ -53,7 +53,9 @@ Test claims against the overall requirement, material context, evidence, coverag
 
 For a surveyor-minded review of a hospital SAR form, read both [references/review-and-scoring.md](references/review-and-scoring.md) and [references/surveyor-review-template.md](references/surveyor-review-template.md). Follow the form's row structure: retain `(i) บริบท` without score or finding; for every scored subchapter separate `(ii) ผลการพัฒนาที่ได้ดำเนินการ`, `(iii) แผนการพัฒนา`, and `(iv) ผลการดำเนินการ`. Display Self Score and AI-Assisted Score only on row `(ii)`, after using the KPI evidence from row `(iv)` to calibrate that score.
 
-Calibrate independently from the hospital's Self Score, but apply the score-change gate before assigning a lower AI-Assisted Score: name the exact maturity anchor not met, cite material evidence that constrains the overall requirement across important areas, and explain why the issue is score-limiting rather than only a For Finding matter. Do not let one adverse indicator or one risk domain determine a compound subchapter unless it is scope-matched and demonstrates material system unreliability.
+Calibrate independently from the hospital's Self Score, but apply the score-change gate before assigning a lower AI-Assisted Score: name the exact maturity anchor not met, cite material evidence that constrains the overall requirement across important areas, and explain why the issue is score-limiting rather than only a For Finding matter. Do not let one adverse indicator or one important risk/issue determine a compound subchapter unless its scope matches the requirement and it demonstrates material system unreliability.
+
+Preserve the official Thai HA6 chapter and subchapter titles verbatim in every heading. Do not shorten, paraphrase, modernize, or replace them with model-generated labels. Prefer terminology used in the official standard; in Thai output use `ความเสี่ยงสำคัญ`, `ประเด็นสำคัญ`, `พื้นที่สำคัญ`, or `ข้อกำหนดโดยรวม` as context requires, and do not expose invented labels such as `risk domain`.
 
 ### Draft or review Part IV
 

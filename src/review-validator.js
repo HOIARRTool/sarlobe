@@ -44,7 +44,9 @@ export function validateReview(review, standard) {
   if (JSON.stringify(expected) !== JSON.stringify(actual)) {
     throw new Error(`AI output subchapters mismatch: expected ${expected.join(", ")}`);
   }
-  for (const item of review.subchapters) {
+  review.standard_title = standard.title;
+  for (const [index, item] of review.subchapters.entries()) {
+    item.title = standard.subchapters[index][1];
     const aiScore = item.development?.ai_assisted_score;
     if (!Number.isInteger(aiScore) || aiScore < 1 || aiScore > 5) {
       throw new Error(`Invalid AI-Assisted Score for ${item.code}`);

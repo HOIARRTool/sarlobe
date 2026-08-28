@@ -85,6 +85,15 @@ test("report generator creates Word and PDF and merges the subchapter cell", asy
   assert.match(xml, /w:vMerge w:val="continue"/);
   assert.match(xml, /Self Score/);
   assert.match(xml, /AI-Assisted Score/);
+  assert.match(xml, /Browallia New/);
+  assert.match(xml, /II – 3 สิ่งแวดล้อมในการดูแลผู้ป่วย\/ผู้รับผลงาน/);
+});
+
+test("PDF generator is wired to all four Browallia New faces", async () => {
+  const source = await readFile(new URL("../src/report-files.js", import.meta.url), "utf8");
+  for (const face of ["Regular", "Bold", "Italic", "BoldItalic"]) {
+    assert.match(source, new RegExp(`BrowalliaNew-${face}\\.ttf`));
+  }
 });
 
 test("PDF table fits inside A3 landscape with normal one-inch margins", () => {

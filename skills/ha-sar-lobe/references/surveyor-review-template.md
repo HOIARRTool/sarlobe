@@ -20,7 +20,7 @@ Read [review-and-scoring.md](review-and-scoring.md) and use its official maturit
 - Missing detail in SAR does not automatically lower the score.
 - A result below target does not automatically force score 2 if important processes are implemented effectively and the organization analyzes and uses the result.
 - Calibrate independently from the Self Score. When the AI-Assisted Score is lower, `score_rationale` must name the unmet maturity anchor, the material hospital evidence that constrains the overall requirement, and why the issue is score-limiting rather than only For Finding. If that basis is unavailable, do not lower the score solely from uncertainty.
-- For a compound subchapter, group evidence and KPIs by risk domain before scoring. One unfavorable domain or indicator affects the whole score only when it is scope-matched and materially demonstrates unreliable implementation across important areas.
+- For a compound subchapter, group evidence and indicators by the important risks or issues named in the standard before scoring. One unfavorable issue or indicator affects the whole score only when its scope matches the requirement and it materially demonstrates unreliable implementation across important areas. In Thai output, use `ความเสี่ยงสำคัญ` or `ประเด็นสำคัญ`, not `risk domain`.
 - Distinguish process nonconformity, near miss, and actual harm. Do not infer harm from an incorrect-process indicator without supporting evidence.
 - Scores 4-5 require the corresponding maturity in continuous improvement, integration, sustained/comparative results, role-model practice, or impact.
 - Calculate the AI-Assisted Score only after reading both `(ii) ผลการพัฒนาที่ได้ดำเนินการ` and the relevant KPI evidence in `(iv) ผลการดำเนินการ`.

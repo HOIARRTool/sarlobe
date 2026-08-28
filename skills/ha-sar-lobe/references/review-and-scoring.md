@@ -32,7 +32,7 @@ Calibrate the AI-Assisted Score independently; the hospital's Self Score is neit
 
 If any of these cannot be stated from the supplied evidence, do not lower the score merely because a detail is missing, verification sampling is not 100%, the hospital has written a future improvement plan, or one indicator is below target. Request the smallest material evidence needed under For Finding. Conversely, lower the score when reliable evidence shows important requirements are absent, implementation is materially partial or unreliable, or the organization does not measure or use results at the maturity anchor claimed.
 
-For a compound subchapter covering several risk domains, judge the whole requirement without mechanical averaging. A weak domain becomes the lowest material maturity constraint only when its scope, severity, recurrence, and system implications are substantial enough to impair the overall requirement. One adverse indicator must not cap the whole subchapter at score 2 solely because it is unfavorable.
+For a compound subchapter covering several important risks or issues, judge the whole requirement without mechanical averaging. A weak issue becomes the lowest material maturity constraint only when its scope, severity, recurrence, and system implications are substantial enough to impair the overall requirement. One adverse indicator must not cap the whole subchapter at score 2 solely because it is unfavorable. In Thai output, use the standard's wording such as `ความเสี่ยงสำคัญ` or `ประเด็นสำคัญ`; do not label these groups `risk domain`.
 
 Before an adverse KPI changes a process score, determine:
 

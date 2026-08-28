@@ -19,13 +19,15 @@
 - ISBN: 978-616-8024-73-7
 - Edition status: ฉบับผ่านการรับรองจาก ISQuaEEA พิมพ์ครั้งที่ 1, กุมภาพันธ์ 2569; ISQuaEEA accreditation period January 2026-January 2030
 - Effective date for accreditation: 1 October 2026 (1 ตุลาคม 2569)
-- File supplied by user: HA Standard 6th.pdf
+- Files supplied by user: `HA Standard 6th.pdf`; rereviewed against `HA Standard 6th(1).pdf` on 2026-08-28 (identical SHA-256)
 - PDF pages: 276; printed book page 1 corresponds to PDF page 11, so the normal body-page offset is +10
 - SHA-256: bb322141e4afdfce2cf4a6e72b920ab1384a5f0f50e59c1d235386523296a214
-- Added: 2026-08-26
+- Added: 2026-08-26; exact-title and terminology review confirmed: 2026-08-28
 - Authority: Normative standard
 - Temporal note: as of 2026-08-26 this edition is officially published but not yet effective for accreditation. Confirm the assessment date and any HAI transition announcement before final scoring or declaring it the applicable standard.
 - Durable use: overall requirements, implementation guidance, Scoring Guideline, Core Values and Concepts, and the official crosswalk from edition 6 to edition 5.
+- Title control: chapter/subchapter headings in outputs must use the official Thai wording verbatim; do not shorten or paraphrase them.
+- Terminology control: prefer the words used in this standard. Use `ความเสี่ยงสำคัญ`, `ประเด็นสำคัญ`, `พื้นที่สำคัญ`, and `ข้อกำหนดโดยรวม` as context requires instead of invented labels such as `risk domain`.
 - Retrieval aid: [ha6-standard-index.md](ha6-standard-index.md)
 
 ## Official implementation guidance

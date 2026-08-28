@@ -19,10 +19,12 @@ import {
   WidthType,
 } from "docx";
 import PdfPrinter from "pdfmake";
+import { displayStandardHeading } from "./standards.js";
 
 const DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 const PDF_MIME = "application/pdf";
-const FONT_NAME = "Sarabun";
+const FONT_NAME = "Browallia New";
+const PDF_FONT_NAME = "BrowalliaNew";
 const COLORS = {
   ink: "18332E",
   teal: "0B6B5E",
@@ -181,7 +183,7 @@ function docxHeaderRow() {
 function docxRows(review) {
   const rows = [new TableRow({
     children: [
-      docxCell([docxParagraph(`${review.standard_code} ${review.standard_title}`, { bold: true, after: 0 })], DOCX_WIDTHS[0], { fill: COLORS.cream }),
+      docxCell([docxParagraph(displayStandardHeading(review.standard_code, review.standard_title), { bold: true, after: 0 })], DOCX_WIDTHS[0], { fill: COLORS.cream }),
       docxCell([docxParagraph("(i) บริบท", { bold: true, after: 0 })], DOCX_WIDTHS[1], { fill: COLORS.cream }),
       docxCell(docxRecord(review.major_context.hospital_text, review.major_context.source_reference), DOCX_WIDTHS[2], { fill: COLORS.cream }),
       docxCell([], DOCX_WIDTHS[3], { fill: COLORS.cream }),
@@ -192,7 +194,7 @@ function docxRows(review) {
 
   for (const chapter of review.subchapters) {
     rows.push(new TableRow({ children: [
-      docxCell([docxParagraph(`${chapter.code} ${chapter.title}`, { bold: true, after: 0 })], DOCX_WIDTHS[0], { fill: COLORS.mint, verticalMerge: VerticalMergeType.RESTART }),
+      docxCell([docxParagraph(displayStandardHeading(chapter.code, chapter.title), { bold: true, after: 0 })], DOCX_WIDTHS[0], { fill: COLORS.mint, verticalMerge: VerticalMergeType.RESTART }),
       docxCell([docxParagraph("(ii) ผลการพัฒนาที่ได้ดำเนินการ", { bold: true, after: 0 })], DOCX_WIDTHS[1]),
       docxCell(docxRecord(chapter.development.hospital_text, chapter.development.source_reference), DOCX_WIDTHS[2]),
       docxScore(chapter.development.self_score, DOCX_WIDTHS[3]),
@@ -253,7 +255,7 @@ async function buildDocx(job, review) {
       },
       children: [
         docxParagraph("AI-ASSISTED SAR REVIEW", { bold: true, size: 17, color: COLORS.teal, after: 30, keepNext: true }),
-        docxParagraph(`${job.standard_code} ${job.standard_title}`, { bold: true, size: 30, color: COLORS.tealDark, after: 25, keepNext: true }),
+        docxParagraph(displayStandardHeading(job.standard_code, review.standard_title), { bold: true, size: 30, color: COLORS.tealDark, after: 25, keepNext: true }),
         docxParagraph(`จัดทำเมื่อ ${thaiDate(job.updated_at || Date.now())} | เลขอ้างอิง ${job.id}`, { size: 16, color: COLORS.muted, after: 100, keepNext: true }),
         new Table({
           rows: [docxHeaderRow(), ...docxRows(review)],
@@ -306,7 +308,7 @@ function pdfFinding(finding) {
 
 function pdfRows(review) {
   const rows = [[
-    pdfText(`${review.standard_code} ${review.standard_title}`, { bold: true, fillColor: `#${COLORS.cream}` }),
+    pdfText(displayStandardHeading(review.standard_code, review.standard_title), { bold: true, fillColor: `#${COLORS.cream}` }),
     pdfText("(i) บริบท", { bold: true, fillColor: `#${COLORS.cream}` }),
     { ...pdfRecord(review.major_context.hospital_text, review.major_context.source_reference), fillColor: `#${COLORS.cream}` },
     { text: "", fillColor: `#${COLORS.cream}` },
@@ -315,7 +317,7 @@ function pdfRows(review) {
   ]];
   for (const chapter of review.subchapters) {
     rows.push([
-      { text: `${chapter.code} ${chapter.title}`, bold: true, rowSpan: 3, fillColor: `#${COLORS.mint}` },
+      { text: displayStandardHeading(chapter.code, chapter.title), bold: true, rowSpan: 3, fillColor: `#${COLORS.mint}` },
       pdfText("(ii) ผลการพัฒนาที่ได้ดำเนินการ", { bold: true }),
       pdfRecord(chapter.development.hospital_text, chapter.development.source_reference),
       pdfText(chapter.development.self_score ?? "", { bold: true, fontSize: 13, alignment: "center" }),
@@ -346,14 +348,18 @@ function pdfRows(review) {
 }
 
 async function buildPdf(job, review) {
-  const regular = fileURLToPath(new URL("../node_modules/@expo-google-fonts/sarabun/400Regular/Sarabun_400Regular.ttf", import.meta.url));
-  const bold = fileURLToPath(new URL("../node_modules/@expo-google-fonts/sarabun/700Bold/Sarabun_700Bold.ttf", import.meta.url));
-  const printer = new PdfPrinter({ Sarabun: { normal: regular, bold, italics: regular, bolditalics: bold } });
+  const regular = fileURLToPath(new URL("../assets/fonts/BrowalliaNew-Regular.ttf", import.meta.url));
+  const bold = fileURLToPath(new URL("../assets/fonts/BrowalliaNew-Bold.ttf", import.meta.url));
+  const italics = fileURLToPath(new URL("../assets/fonts/BrowalliaNew-Italic.ttf", import.meta.url));
+  const bolditalics = fileURLToPath(new URL("../assets/fonts/BrowalliaNew-BoldItalic.ttf", import.meta.url));
+  const printer = new PdfPrinter({
+    [PDF_FONT_NAME]: { normal: regular, bold, italics, bolditalics },
+  });
   const header = ["มาตรฐาน", "องค์ประกอบ SAR", "รายละเอียดที่โรงพยาบาลบันทึก", "Self Score", "AI-Assisted Score", "For Finding"]
     .map((text) => ({ text, bold: true, color: "#FFFFFF", fillColor: `#${COLORS.tealDark}`, alignment: "center" }));
   const content = [
     { text: "AI-ASSISTED SAR REVIEW", bold: true, fontSize: 8, color: `#${COLORS.teal}`, characterSpacing: 0.7, margin: [0, 0, 0, 2] },
-    { text: `${job.standard_code} ${job.standard_title}`, bold: true, fontSize: 18, color: `#${COLORS.tealDark}`, margin: [0, 0, 0, 2] },
+    { text: displayStandardHeading(job.standard_code, review.standard_title), bold: true, fontSize: 18, color: `#${COLORS.tealDark}`, margin: [0, 0, 0, 2] },
     { text: `จัดทำเมื่อ ${thaiDate(job.updated_at || Date.now())} | เลขอ้างอิง ${job.id}`, fontSize: 7, color: `#${COLORS.muted}`, margin: [0, 0, 0, 8] },
     {
       table: { headerRows: 1, widths: [...PDF_WIDTHS], body: [header, ...pdfRows(review)] },
@@ -383,12 +389,12 @@ async function buildPdf(job, review) {
     pageSize: "A3",
     pageOrientation: "landscape",
     pageMargins: [...PDF_PAGE_MARGINS],
-    defaultStyle: { font: "Sarabun", fontSize: 7.2, color: `#${COLORS.ink}`, lineHeight: 1.2 },
+    defaultStyle: { font: PDF_FONT_NAME, fontSize: 7.8, color: `#${COLORS.ink}`, lineHeight: 1.2 },
     content,
     footer: (current, total) => ({
       text: `AI-assisted review - ไม่ใช่คำตัดสินอย่างเป็นทางการ | หน้า ${current}/${total}`,
       alignment: "right",
-      font: "Sarabun",
+      font: PDF_FONT_NAME,
       fontSize: 6.5,
       color: `#${COLORS.muted}`,
       margin: [0, 5, PDF_PAGE_MARGINS[2], 0],

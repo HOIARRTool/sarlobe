@@ -14,7 +14,6 @@
     "check": "node --check src/app.js && node --check src/openai-service.js && node --check src/prompt.js && node --check src/lobe-context.js && node --check src/report.js && node --check src/report-files.js && node --check src/google-drive.js"
   },
   "dependencies": {
-    "@expo-google-fonts/sarabun": "^0.4.1",
     "docx": "^9.7.1",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
